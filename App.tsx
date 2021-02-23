@@ -11,6 +11,7 @@ import React from 'react';
 import * as eva from '@eva-design/eva';
 import { ApplicationProvider } from '@ui-kitten/components';
 import { Animated, Easing, Dimensions, StatusBar } from 'react-native';
+//import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { FocusedScreen } from './screens/Focused';
 import { AddTaskScreen } from './screens/AddTask';
@@ -23,7 +24,10 @@ const App = () => {
       <StatusBar hidden={true} />
       {currentFocus ? (
         <AnimatedComponent>
-          <FocusedScreen focusedItem={currentFocus} />
+          <FocusedScreen
+            setFocus={setCurrentFocus}
+            focusedItem={currentFocus}
+          />
         </AnimatedComponent>
       ) : (
         <AnimatedComponent>

@@ -1,10 +1,18 @@
 import React from 'react';
-import { StyleSheet, Dimensions } from 'react-native';
-import { Layout, Button } from '@ui-kitten/components';
+import { StyleSheet, Dimensions, Alert } from 'react-native';
+import { Layout, Button, Text } from '@ui-kitten/components';
 import { Timer } from '../components/Timer';
 import { Progress } from '../components/Progress';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ITask } from '../types';
 
-export const FocusedScreen = ({ focusedItem }: { focusedItem: string }) => {
+export const FocusedScreen = ({
+  focusedItem,
+  setFocus,
+}: {
+  focusedItem: string;
+  setFocus: (s: string) => void;
+}) => {
   const ONE_MIN = 60;
   let totalTime = React.useRef(10 * ONE_MIN);
   const [remainingTime, setRemainingTime] = React.useState(totalTime.current);
@@ -33,7 +41,7 @@ export const FocusedScreen = ({ focusedItem }: { focusedItem: string }) => {
       <Progress
         value={timeRemainingInPercent(remainingTime, totalTime.current)}
       />
-      <Layout level="4">
+      <Layout level="4" style={{ flex: 1 }}>
         <Layout
           style={{
             display: 'flex',
@@ -48,7 +56,7 @@ export const FocusedScreen = ({ focusedItem }: { focusedItem: string }) => {
             size="small"
             onPress={() => setTimePaused(!timePaused)}
           >
-            {timePaused ? 'RESUME' : 'PAUSE'}
+            {timePaused ? 'START' : 'PAUSE'}
           </Button>
         </Layout>
 
@@ -94,9 +102,57 @@ export const FocusedScreen = ({ focusedItem }: { focusedItem: string }) => {
           </Button>
         </Layout>
 
-        <Layout style={{ paddingTop: 100 }}>
-          <Button status="success" appearance="ghost" size="giant">
-            {focusedItem.toUpperCase()}
+        <Layout
+          style={{
+            flex: 1,
+            display: 'flex',
+            justifyContent: 'center',
+          }}
+        >
+          <Text
+            style={{ ...styles.text_center, color: 'skyblue' }}
+            category="h4"
+          >
+            {focusedItem}
+          </Text>
+        </Layout>
+
+        <Layout
+          style={{
+            flex: 1,
+            justifyContent: 'flex-end',
+            borderStyle: 'solid',
+            paddingBottom: 10,
+          }}
+        >
+          <Button
+            size="medium"
+            appearance="outline"
+            status="danger"
+            style={{ alignSelf: 'center' }}
+            onPress={async () => {
+              setFocus('');
+
+              try {
+                const _raw = await AsyncStorage.getItem('tasks');
+                const savedTasks: ITask[] = JSON.parse(_raw || '[]');
+                const task: ITask = { title: focusedItem, isFinished: false };
+
+                if (remainingTime <= 0) {
+                  // task completed
+                  task.isFinished = true;
+                }
+
+                await AsyncStorage.setItem(
+                  'tasks',
+                  JSON.stringify([...savedTasks, task]),
+                );
+              } catch (err) {
+                console.log(err.message);
+              }
+            }}
+          >
+            CANCEL THIS TASK
           </Button>
         </Layout>
       </Layout>
@@ -116,6 +172,10 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     paddingTop: 40,
     paddingBottom: 40,
+  },
+
+  text_center: {
+    textAlign: 'center',
   },
 });
 
