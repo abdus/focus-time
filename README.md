@@ -47,5 +47,5 @@ I took my own path for the codebase.
 
 ## Similar Projects
 
-[geanu02/focus_time](https://github.com/geanu02/focus_time/)
-[Sankti/FocusTime](https://github.com/Sankti/FocusTime)
+- [geanu02/focus_time](https://github.com/geanu02/focus_time/)
+- [Sankti/FocusTime](https://github.com/Sankti/FocusTime)
