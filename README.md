@@ -21,3 +21,31 @@
 5. Install and Start App by running `yarn android` (in a separate terminal)
 
 > If you just want to try out an APK, you can find it in [release page](https://github.com/abdus/focus-time/releases/tag/v0.0.1-alpha).
+
+## Screenshots
+
+![Screenshot_1614188576.png](./docs/Screenshot_1614188576.png)
+![Screenshot_1614188590.png](./docs/Screenshot_1614188590.png)
+![Screenshot_1614188608.png](./docs/Screenshot_1614188608.png)
+![Screenshot_1614188613.png](./docs/Screenshot_1614188613.png)
+
+## Built With
+
+- [React Native](https://reactnative.dev/)
+- [Eva Design](https://eva.design/)
+- [UI Kitten](https://akveo.github.io/react-native-ui-kitten/)
+- [NeoVim](https://neovim.io)
+
+## License
+
+Source code is licensed under [GPL-3.0 License](https://github.com/abdus/focus-time/blob/main/LICENSE)
+
+## Attributions
+
+Feature-wise, this app is same with the one from [Complete React Native Developer in 2021: Zero to Mastery](https://academy.zerotomastery.io/courses/1050496).
+I took my own path for the codebase.
+
+## Similar Projects
+
+[geanu02/focus_time](https://github.com/geanu02/focus_time/)
+[Sankti/FocusTime](https://github.com/Sankti/FocusTime)
